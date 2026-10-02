@@ -1,18 +1,23 @@
+@import "tailwindcss";
+@import "@fontsource-variable/geist";
+
+@plugin "daisyui";
+
 :root {
   --text: #6b6375;
   --text-h: #08060d;
   --bg: #fff;
-  --border: #e5e4e7;
+  --border: oklch(0.922 0 0);
   --code-bg: #f4f3ec;
-  --accent: #aa3bff;
+  --accent: oklch(0.97 0 0);
   --accent-bg: rgba(170, 59, 255, 0.1);
   --accent-border: rgba(170, 59, 255, 0.5);
   --social-bg: rgba(244, 243, 236, 0.5);
   --shadow:
     rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
 
-  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
+  --sans: 'Geist Variable', system-ui, 'Segoe UI', Roboto, sans-serif;
+  --heading: 'Geist Variable', system-ui, 'Segoe UI', Roboto, sans-serif;
   --mono: ui-monospace, Consolas, monospace;
 
   font: 18px/145% var(--sans);
@@ -50,6 +55,12 @@
   }
 }
 
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+}
+
 #root {
   width: 1126px;
   max-width: 100%;
@@ -60,10 +71,6 @@
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-}
-
-body {
-  margin: 0;
 }
 
 h1,

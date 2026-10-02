@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { MathJaxContext } from 'better-react-mathjax';
 
 // TODO: คุณต้องสร้างไฟล์ component เหล่านี้และแก้ไข path ให้ถูกต้อง
-// import Navbar from './components/Navbar';
+// import { Navbar } from './components/layout/navbar';
 // import HomePage from './pages/HomePage';
 // import NotFoundPage from './pages/NotFoundPage';
 // import { methodRegistry } from './registry'; // หรือ path ที่เก็บ methodRegistry
@@ -33,7 +33,7 @@ export default function App() {
           </main>
           <footer className="border-t py-4">
             <p className="mx-auto max-w-7xl px-4 text-xs text-muted-foreground">
-              React + shadcn/ui frontend · FastAPI backend · Supabase-ready storage.
+              React + Tailwind CSS + daisyUI frontend · FastAPI backend · Supabase-ready storage.
             </p>
           </footer>
         </div>
