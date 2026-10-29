@@ -1,6 +1,7 @@
 // src/lib/methods.ts
 export interface MethodItem {
   title: string
+  path?: string
 }
 
 export interface MethodGroup {
@@ -14,8 +15,8 @@ export const methodGroups: MethodGroup[] = [
     category: "root-of-equation",
     label: "Root of Equation",
     methods: [
-      { title: "Graphical Method" },
-      { title: "Bisection Method" },
+      { title: "Graphical Method", path: "/graphical" },
+      { title: "Bisection Method", path: "/bisection" },
       { title: "False Position Method" },
       { title: "One-Point Iteration" },
       { title: "Newton-Raphson Method" },

@@ -3,6 +3,8 @@ import { MathJaxContext } from 'better-react-mathjax';
 
 import { Navbar } from './components/layout/navbar';
 import { HomePage } from './pages/Homepage';
+import BisectionPage from './pages/BisectionPage';
+import GraphicalPage from './pages/GraphicalPage';
 // import NotFoundPage from './pages/NotFoundPage';
 // import { methodRegistry } from './registry'; // หรือ path ที่เก็บ methodRegistry
 
@@ -15,6 +17,11 @@ export default function App() {
           <main className="mx-auto w-full max-w-7xl flex-1 px-4 py-8">
             <Routes>
               <Route path="/" element={<HomePage />} />
+              <Route path="/graphical" element={<GraphicalPage />} />
+              <Route path="/root-of-equation/graphical" element={<GraphicalPage />} />
+              <Route path="/bisection" element={<BisectionPage />} />
+              <Route path="/root-of-equation/bisection" element={<BisectionPage />} />
+              <Route path="/root-of-equation" element={<BisectionPage />} />
               <Route path="*" element={<HomePage />} />
               {/* {methodRegistry.all().flatMap((category) =>
                 category.methods.map((method) => {
@@ -31,11 +38,7 @@ export default function App() {
               <Route path="*" element={<NotFoundPage />} /> */}
             </Routes>
           </main>
-          <footer className="border-t py-4">
-            <p className="mx-auto max-w-7xl px-4 text-xs text-muted-foreground">
-              React + Tailwind CSS + daisyUI frontend · FastAPI backend · Supabase-ready storage.
-            </p>
-          </footer>
+         
         </div>
       </BrowserRouter>
     </MathJaxContext>

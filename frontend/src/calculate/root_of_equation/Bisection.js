@@ -1,4 +1,4 @@
-import { evaluate, expression, pare, parse } from "mathjs";
+import { parse } from "mathjs";
 
 export class Bisection {
   constructor(f, a, b, et) {
@@ -9,7 +9,7 @@ export class Bisection {
     this.et = parseFloat(et);
   }
 
-  evalAt() {
+  evalAt(x) {
     return this.fp.evaluate({ x });
   }
 
@@ -35,11 +35,11 @@ export class Bisection {
     let r = this.r;
     let f = this.fp;
     let et = this.et;
-    let fl;
-    let fr;
+    let fl = this.evalAt(l);
+    let fr = this.evalAt(r);
 
-    if (fl === 0) return { root: l, error: 0, iterations: 0 };
-    if (fr === 0) return { root: r, error: 0, iterations: 0 };
+    if (fl === 0) return { root: l, error: 0, iterations: 0, history: [] };
+    if (fr === 0) return { root: r, error: 0, iterations: 0, history: [] };
 
     let m, oldm;
     let error = 1.0;

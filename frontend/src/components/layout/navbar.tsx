@@ -35,7 +35,7 @@ export function Navbar() {
                                                             {group.methods.map((method: MethodItem) => (
                                                                   <li key={method.title}>
                                                                         <Link
-                                                                              to={basePath}
+                                                                              to={method.path || basePath}
                                                                               className="block rounded-lg px-3 py-2 text-sm font-medium transition-colors hover:bg-base-200"
                                                                         >
                                                                               {method.title}
