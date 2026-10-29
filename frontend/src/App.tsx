@@ -18,11 +18,10 @@ export default function App() {
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/graphical" element={<GraphicalPage />} />
-              <Route path="/root-of-equation/graphical" element={<GraphicalPage />} />
+              
               <Route path="/bisection" element={<BisectionPage />} />
-              <Route path="/root-of-equation/bisection" element={<BisectionPage />} />
-              <Route path="/root-of-equation" element={<BisectionPage />} />
-              <Route path="*" element={<HomePage />} />
+              
+              
               {/* {methodRegistry.all().flatMap((category) =>
                 category.methods.map((method) => {
                   const Component = method.component
