@@ -1,3 +1,5 @@
+import { det } from "mathjs"
+
 export interface RootEquationPreset {
   fx: string
   xl: string
@@ -15,6 +17,12 @@ export interface NewtonRaphsonPreset {
   fx: string
   x0: string
   err?: string
+}
+
+export interface LinearSystemPreset {
+  size: number
+  A: number[][]
+  b: number[]
 }
 
 export const rootEquationPresets: RootEquationPreset[] = [
@@ -101,4 +109,236 @@ export function getRandomNewtonProblem(currentFx?: string): NewtonRaphsonPreset 
  */
 export function getRandomSecantProblem(currentFx?: string): RootEquationPreset {
   return getRandomRootProblem(currentFx)
+}
+
+export const jacobiPresets: LinearSystemPreset[] = [
+  {
+    size: 3,
+    A: [
+      [5, -2, 1],
+      [-1, -7, 2],
+      [2, 2, 8],
+    ],
+    b: [-4, -17, 8],
+  },
+  {
+    size: 3,
+    A: [
+      [4, -1, 1],
+      [4, -8, 1],
+      [-2, 1, 5],
+    ],
+    b: [7, -21, 15],
+  },
+  {
+    size: 4,
+    A: [
+      [10, -1, 2, 0],
+      [-1, 11, -1, 3],
+      [2, -1, 10, -1],
+      [0, 3, -1, 8],
+    ],
+    b: [6, 25, -11, 15],
+  },
+  {
+    size: 2,
+    A: [
+      [5, 1],
+      [2, 4],
+    ],
+    b: [11, 14],
+  },
+]
+
+/**
+ * Returns a random Jacobi problem (guaranteed diagonally dominant)
+ */
+export function getRandomJacobiProblem(size: number = 3): LinearSystemPreset {
+  const matching = jacobiPresets.filter((p) => p.size === size)
+  if (matching.length > 0 && Math.random() < 0.6) {
+    const idx = Math.floor(Math.random() * matching.length)
+    return matching[idx]
+  }
+
+  // Generate diagonally dominant system
+  const A: number[][] = []
+  for (let i = 0; i < size; i++) {
+    const row: number[] = []
+    let offDiagSum = 0
+    for (let j = 0; j < size; j++) {
+      if (i === j) {
+        row.push(0) // placeholder
+      } else {
+        const val = Math.floor(Math.random() * 5) - 2
+        row.push(val)
+        offDiagSum += Math.abs(val)
+      }
+    }
+    // Set diagonal to strictly greater than sum of off-diagonal
+    const diag = offDiagSum + Math.floor(Math.random() * 4) + 2
+    row[i] = Math.random() < 0.5 ? diag : -diag
+    A.push(row)
+  }
+  const x = Array.from({ length: size }, () => Math.floor(Math.random() * 7) - 3)
+  const b = A.map((row) => row.reduce((sum, val, idx) => sum + val * x[idx], 0))
+  return { size, A, b }
+}
+
+export const conjugateGradientPresets: LinearSystemPreset[] = [
+  {
+    size: 3,
+    A: [
+      [5, -2, 1],
+      [-2, 6, -1],
+      [1, -1, 4],
+    ],
+    b: [4, 3, 4],
+  },
+  {
+    size: 3,
+    A: [
+      [4, 1, 1],
+      [1, 4, 1],
+      [1, 1, 4],
+    ],
+    b: [6, 6, 6],
+  },
+  {
+    size: 2,
+    A: [
+      [5, 2],
+      [2, 4],
+    ],
+    b: [9, 8],
+  },
+  {
+    size: 4,
+    A: [
+      [6, 1, -1, 0],
+      [1, 5, 1, -1],
+      [-1, 1, 6, 1],
+      [0, -1, 1, 5],
+    ],
+    b: [6, 6, 7, 5],
+  },
+]
+
+/**
+ * Returns a random Conjugate Gradient problem (symmetric positive-definite)
+ */
+export function getRandomConjugateGradientProblem(size: number = 3): LinearSystemPreset {
+  const matching = conjugateGradientPresets.filter((p) => p.size === size)
+  if (matching.length > 0 && Math.random() < 0.6) {
+    const idx = Math.floor(Math.random() * matching.length)
+    return matching[idx]
+  }
+
+  // Generate symmetric strictly diagonally dominant system (guaranteed positive-definite)
+  const A: number[][] = Array.from({ length: size }, () => Array(size).fill(0))
+  for (let i = 0; i < size; i++) {
+    for (let j = i + 1; j < size; j++) {
+      const val = Math.floor(Math.random() * 5) - 2
+      A[i][j] = val
+      A[j][i] = val
+    }
+  }
+
+  for (let i = 0; i < size; i++) {
+    let offDiagSum = 0
+    for (let j = 0; j < size; j++) {
+      if (i !== j) offDiagSum += Math.abs(A[i][j])
+    }
+    A[i][i] = offDiagSum + Math.floor(Math.random() * 3) + 2
+  }
+
+  const x = Array.from({ length: size }, () => Math.floor(Math.random() * 5) - 2)
+  const b = A.map((row) => row.reduce((sum, val, idx) => sum + val * x[idx], 0))
+  return { size, A, b }
+}
+
+export const cramerPresets: LinearSystemPreset[] = [
+  {
+    size: 3,
+    A: [
+      [-2, 3, 1],
+      [3, 4, -5],
+      [1, -2, 1],
+    ],
+    b: [9, 0, -4],
+  },
+  {
+    size: 3,
+    A: [
+      [2, -1, 3],
+      [1, 1, 1],
+      [1, -1, 1],
+    ],
+    b: [5, 6, 2],
+  },
+  {
+    size: 3,
+    A: [
+      [4, -2, 1],
+      [-2, 4, -2],
+      [1, -2, 4],
+    ],
+    b: [11, -16, 17],
+  },
+  {
+    size: 2,
+    A: [
+      [3, 2],
+      [1, -1],
+    ],
+    b: [18, 1],
+  },
+  {
+    size: 2,
+    A: [
+      [4, 3],
+      [2, -5],
+    ],
+    b: [10, 18],
+  },
+  {
+    size: 4,
+    A: [
+      [1, 1, 0, 1],
+      [2, 1, -1, 1],
+      [4, -1, 5, -2],
+      [1, -1, -1, 2],
+    ],
+    b: [2, 1, 0, -3],
+  },
+]
+
+/**
+ * Generates or picks a solvable linear system for any given matrix dimension N
+ */
+export function getRandomCramerProblem(size: number = 3, currentA?: number[][]): LinearSystemPreset {
+  // Check if we have matching presets of the same size
+  const matching = cramerPresets.filter(
+    (p) => p.size === size && JSON.stringify(p.A) !== JSON.stringify(currentA),
+  )
+
+  if (matching.length > 0 && Math.random() < 0.6) {
+    const idx = Math.floor(Math.random() * matching.length)
+    return matching[idx]
+  }
+
+  // Dynamically generate an invertible matrix with integer solutions
+  for (let attempt = 0; attempt < 80; attempt++) {
+    const A = Array.from({ length: size }, () =>
+      Array.from({ length: size }, () => Math.floor(Math.random() * 9) - 4),
+    )
+    const d = det(A)
+    if (Math.abs(d) > 0.5) {
+      const x = Array.from({ length: size }, () => Math.floor(Math.random() * 7) - 3)
+      const b = A.map((row) => row.reduce((sum, val, idx) => sum + val * x[idx], 0))
+      return { size, A, b }
+    }
+  }
+
+  // Fallback preset
+  return cramerPresets[0]
 }

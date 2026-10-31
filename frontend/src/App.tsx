@@ -1,18 +1,20 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { MathJaxContext } from 'better-react-mathjax';
-
 import { Navbar } from './components/layout/navbar';
 import { HomePage } from './pages/Homepage';
-import BisectionPage from './pages/BisectionPage';
 import GraphicalPage from './pages/GraphicalPage';
+import BisectionPage from './pages/BisectionPage';
 import FalsePositionPage from './pages/FalsePositionPage';
 import OnePointPage from './pages/OnePointPage';
 import NewtonRaphsonPage from './pages/NewtonRaphsonPage';
 import SecantPage from './pages/SecantPage';
-import NewtonRaphsonPage from './pages/NewtonRaphsonPage';
-import SecantPage from './pages/SecantPage';
-// import NotFoundPage from './pages/NotFoundPage';
-// import { methodRegistry } from './registry'; // หรือ path ที่เก็บ methodRegistry
+import CramerPage from './pages/CramerPage';
+import GaussEliminationPage from './pages/GaussEliminationPage';
+import GaussJordanPage from './pages/GaussJordanPage';
+import MatrixInversionPage from './pages/MatrixInversionPage';
+import LUDecompositionPage from './pages/LUDecompositionPage';
+import JacobiPage from './pages/JacobiPage';
+import ConjugateGradientPage from './pages/ConjugateGradientPage';
 
 export default function App() {
   return (
@@ -22,53 +24,31 @@ export default function App() {
           <Navbar />
           <main className="mx-auto w-full max-w-7xl flex-1 px-4 py-8">
             <Routes>
+              {/* Home */}
               <Route path="/" element={<HomePage />} />
+
+              {/* Root of Equation */}
               <Route path="/graphical" element={<GraphicalPage />} />
               <Route path="/bisection" element={<BisectionPage />} />
               <Route path="/false-position" element={<FalsePositionPage />} />
-              <Route path="/false-positive" element={<FalsePositionPage />} />
-              <Route path="/root-of-equation/false-position" element={<FalsePositionPage />} />
-              <Route path="/root-of-equation/false-positive" element={<FalsePositionPage />} />
               <Route path="/one-point-iteration" element={<OnePointPage />} />
-              <Route path="/one-point" element={<OnePointPage />} />
-              <Route path="/root-of-equation/one-point-iteration" element={<OnePointPage />} />
-              <Route path="/root-of-equation/one-point" element={<OnePointPage />} />
               <Route path="/newton-raphson" element={<NewtonRaphsonPage />} />
-              <Route path="/newtonraphson" element={<NewtonRaphsonPage />} />
-              <Route path="/newton" element={<NewtonRaphsonPage />} />
-              <Route path="/root-of-equation/newton-raphson" element={<NewtonRaphsonPage />} />
-              <Route path="/root-of-equation/newtonraphson" element={<NewtonRaphsonPage />} />
-              <Route path="/root-of-equation/newton" element={<NewtonRaphsonPage />} />
               <Route path="/secant" element={<SecantPage />} />
-              <Route path="/root-of-equation/secant" element={<SecantPage />} />
-              <Route path="/newton-raphson" element={<NewtonRaphsonPage />} />
-              <Route path="/newtonraphson" element={<NewtonRaphsonPage />} />
-              <Route path="/newton" element={<NewtonRaphsonPage />} />
-              <Route path="/root-of-equation/newton-raphson" element={<NewtonRaphsonPage />} />
-              <Route path="/root-of-equation/newtonraphson" element={<NewtonRaphsonPage />} />
-              <Route path="/root-of-equation/newton" element={<NewtonRaphsonPage />} />
-              <Route path="/secant" element={<SecantPage />} />
-              <Route path="/root-of-equation/secant" element={<SecantPage />} />
-              
-              
-              {/* {methodRegistry.all().flatMap((category) =>
-                category.methods.map((method) => {
-                  const Component = method.component
-                  return (
-                    <Route
-                      key={`${category.slug}/${method.slug}`}
-                      path={category.pathOf(method)}
-                      element={<Component meta={method} />}
-                    />
-                  )
-                }),
-              )}
-              <Route path="*" element={<NotFoundPage />} /> */}
+
+              {/* Linear Algebra */}
+              <Route path="/cramer" element={<CramerPage />} />
+              <Route path="/gauss-elimination" element={<GaussEliminationPage />} />
+              <Route path="/gauss-jordan" element={<GaussJordanPage />} />
+              <Route path="/matrix-inversion" element={<MatrixInversionPage />} />
+              <Route path="/lu-decomposition" element={<LUDecompositionPage />} />
+              <Route path="/jacobi" element={<JacobiPage />} />
+              <Route path="/conjugate-gradient" element={<ConjugateGradientPage />} />
+
+            
             </Routes>
           </main>
-         
         </div>
       </BrowserRouter>
     </MathJaxContext>
-  )
+  );
 }
