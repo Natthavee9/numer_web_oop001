@@ -3,7 +3,6 @@ import { Shuffle } from "lucide-react"
 import { Bisection } from "@/calculate/root_of_equation/Bisection.js"
 import { MathView } from "@/components/ui/MathView"
 import { Chart1 } from "@/components/method/chart1"
-import { getRandomRootProblem } from "@/lib/equationPresets"
 
 interface HistoryRow {
   iteration: number
@@ -27,6 +26,7 @@ export default function BisectionPage() {
 
   const [result, setResult] = useState<BisectionResult | null>(null)
   const [errorMsg, setErrorMsg] = useState<string>("")
+  const [loadingRandom, setLoadingRandom] = useState<boolean>(false)
 
   const BisectionCal = (xlVal: number, xrVal: number, fxVal: string, errVal: number) => {
     try {
@@ -53,14 +53,29 @@ export default function BisectionPage() {
     BisectionCal(xlNum, xrNum, fx, errNum)
   }
 
-  const handleRandom = () => {
-    const preset = getRandomRootProblem(fx)
-    setFx(preset.fx)
-    setXl(preset.xl)
-    setXr(preset.xr)
-    if (preset.err) setErr(preset.err)
+  const handleRandom = async () => {
+    setLoadingRandom(true)
     setErrorMsg("")
-    setResult(null)
+    try {
+      const res = await fetch("http://localhost:8000/api/bisection/random")
+      if (!res.ok) {
+        const errJson = await res.json().catch(() => null)
+        throw new Error(errJson?.detail || `Failed to fetch problem from database (Status ${res.status})`)
+      }
+      const data = await res.json()
+
+      const eq = data.equation || data.fx
+      if (eq) setFx(eq)
+      if (data.xl !== undefined) setXl(data.xl.toString())
+      if (data.xr !== undefined) setXr(data.xr.toString())
+      setResult(null)
+    } catch (err: any) {
+      console.error("Database fetch error:", err)
+      setErrorMsg(err.message || "Failed to fetch problem from database. Make sure the backend server is running.")
+      setResult(null)
+    } finally {
+      setLoadingRandom(false)
+    }
   }
 
   return (
@@ -140,10 +155,11 @@ export default function BisectionPage() {
           <button
             type="button"
             onClick={handleRandom}
+            disabled={loadingRandom}
             className="btn btn-outline gap-2"
           >
-            <Shuffle className="size-4" />
-            Random โจทย์
+            <Shuffle className={`size-4 ${loadingRandom ? "animate-spin" : ""}`} />
+            {loadingRandom ? "กำลังดึงโจทย์..." : "Random โจทย์"}
           </button>
           <button type="submit" className="btn btn-primary px-6">
             Calculate
