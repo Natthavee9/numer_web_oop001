@@ -342,3 +342,70 @@ export function getRandomCramerProblem(size: number = 3, currentA?: number[][]):
   // Fallback preset
   return cramerPresets[0]
 }
+
+export interface InterpolationPoint {
+  x: string
+  y: string
+}
+
+export interface InterpolationPreset {
+  points: InterpolationPoint[]
+  targetX: string
+}
+
+export const interpolationPresets: InterpolationPreset[] = [
+  {
+    points: [
+      { x: "10", y: "2.3026" },
+      { x: "15", y: "2.7081" },
+      { x: "20", y: "2.9957" },
+    ],
+    targetX: "16",
+  },
+  {
+    points: [
+      { x: "0", y: "0" },
+      { x: "10", y: "227.04" },
+      { x: "15", y: "362.78" },
+      { x: "20", y: "517.35" },
+      { x: "22.5", y: "602.97" },
+      { x: "30", y: "901.67" },
+    ],
+    targetX: "16",
+  },
+  {
+    points: [
+      { x: "2", y: "9.5" },
+      { x: "4", y: "8.0" },
+      { x: "6", y: "10.5" },
+      { x: "8", y: "39.5" },
+      { x: "10", y: "72.5" },
+    ],
+    targetX: "4.5",
+  },
+  {
+    points: [
+      { x: "1", y: "1.0" },
+      { x: "2", y: "8.0" },
+      { x: "3", y: "27.0" },
+      { x: "4", y: "64.0" },
+      { x: "5", y: "125.0" },
+    ],
+    targetX: "2.5",
+  },
+  {
+    points: [
+      { x: "0", y: "1.0" },
+      { x: "1", y: "2.7183" },
+      { x: "2", y: "7.3891" },
+      { x: "3", y: "20.0855" },
+    ],
+    targetX: "1.5",
+  },
+]
+
+export function getRandomInterpolationProblem(): InterpolationPreset {
+  const index = Math.floor(Math.random() * interpolationPresets.length)
+  return interpolationPresets[index]
+}
+

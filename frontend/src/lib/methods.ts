@@ -40,9 +40,9 @@ export const methodGroups: MethodGroup[] = [
     category: "interpolation",
     label: "Interpolation",
     methods: [
-      { title: "Newton's Divided-Differences" },
-      { title: "Lagrange Interpolation" },
-      { title: "Spline Interpolation" },
+      { title: "Newton's Divided-Differences", path: "/newton-divided" },
+      { title: "Lagrange Interpolation", path: "/lagrange" },
+      { title: "Spline Interpolation", path: "/spline" },
     ],
   },
   {

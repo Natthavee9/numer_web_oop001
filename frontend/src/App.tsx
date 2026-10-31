@@ -15,6 +15,9 @@ import MatrixInversionPage from './pages/MatrixInversionPage';
 import LUDecompositionPage from './pages/LUDecompositionPage';
 import JacobiPage from './pages/JacobiPage';
 import ConjugateGradientPage from './pages/ConjugateGradientPage';
+import NewtonDividedPage from './pages/NewtonDividedPage';
+import LagrangePage from './pages/LagrangePage';
+import SplinePage from './pages/SplinePage';
 
 export default function App() {
   return (
@@ -44,7 +47,13 @@ export default function App() {
               <Route path="/jacobi" element={<JacobiPage />} />
               <Route path="/conjugate-gradient" element={<ConjugateGradientPage />} />
 
-            
+              {/* Interpolation */}
+              <Route path="/newton-divided" element={<NewtonDividedPage />} />
+              <Route path="/lagrange" element={<LagrangePage />} />
+              <Route path="/spline" element={<SplinePage />} />
+
+              {/* 404 Fallback */}
+              <Route path="*" element={<HomePage />} />
             </Routes>
           </main>
         </div>
