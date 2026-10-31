@@ -1,4 +1,4 @@
-# Numerical Methods Web Application (KMUTNB)
+# Numerical Methods Web
 
 A modern, full-stack web application designed for solving and visualizing **Numerical Methods** problems, complete with step-by-step LaTeX formula rendering, interactive convergence graphs, and database-driven problem generation.
 
