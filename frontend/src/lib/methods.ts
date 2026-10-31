@@ -17,10 +17,10 @@ export const methodGroups: MethodGroup[] = [
     methods: [
       { title: "Graphical Method", path: "/graphical" },
       { title: "Bisection Method", path: "/bisection" },
-      { title: "False Position Method" },
-      { title: "One-Point Iteration" },
-      { title: "Newton-Raphson Method" },
-      { title: "Secant Method" },
+      { title: "False Position Method", path: "/false-position" },
+      { title: "One-Point Iteration", path: "/one-point-iteration" },
+      { title: "Newton-Raphson Method", path: "/newton-raphson" },
+      { title: "Secant Method", path: "/secant" },
     ],
   },
   {

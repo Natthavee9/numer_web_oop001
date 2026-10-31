@@ -1,7 +1,9 @@
 import { useState } from "react"
+import { Shuffle } from "lucide-react"
 import { Bisection } from "@/calculate/root_of_equation/Bisection.js"
 import { MathView } from "@/components/ui/MathView"
 import { Chart1 } from "@/components/method/chart1"
+import { getRandomRootProblem } from "@/lib/equationPresets"
 
 interface HistoryRow {
   iteration: number
@@ -49,6 +51,16 @@ export default function BisectionPage() {
       return
     }
     BisectionCal(xlNum, xrNum, fx, errNum)
+  }
+
+  const handleRandom = () => {
+    const preset = getRandomRootProblem(fx)
+    setFx(preset.fx)
+    setXl(preset.xl)
+    setXr(preset.xr)
+    if (preset.err) setErr(preset.err)
+    setErrorMsg("")
+    setResult(null)
   }
 
   return (
@@ -124,7 +136,15 @@ export default function BisectionPage() {
           </div>
         )}
 
-        <div className="mt-6 flex justify-end">
+        <div className="mt-6 flex items-center justify-end gap-3">
+          <button
+            type="button"
+            onClick={handleRandom}
+            className="btn btn-outline gap-2"
+          >
+            <Shuffle className="size-4" />
+            Random โจทย์
+          </button>
           <button type="submit" className="btn btn-primary px-6">
             Calculate
           </button>

@@ -1,7 +1,9 @@
 import { useState } from "react"
+import { Shuffle } from "lucide-react"
 import { Graphical } from "@/calculate/root_of_equation/Graphical.js"
 import { MathView } from "@/components/ui/MathView"
 import { Chart1, type HistoryRow } from "@/components/method/chart1"
+import { getRandomRootProblem } from "@/lib/equationPresets"
 
 interface GraphicalResult {
   root: number
@@ -52,6 +54,16 @@ export default function GraphicalPage() {
     handleCalculate(xlNum, xrNum, fx, errNum)
   }
 
+  const handleRandom = () => {
+    const preset = getRandomRootProblem(fx)
+    setFx(preset.fx)
+    setXl(preset.xl)
+    setXr(preset.xr)
+    if (preset.err) setErr(preset.err)
+    setErrorMsg("")
+    setResult(null)
+  }
+
   // Optimize table display if many iterations
   const visibleHistory = result?.history
     ? showAllRows || result.history.length <= 100
@@ -83,14 +95,13 @@ export default function GraphicalPage() {
             {/* Real-time MathJax equation preview */}
             {fx && (
               <div className="mt-2 rounded-lg bg-base-200/50 p-2 text-center">
-                <span className="text-xs text-base-content/60">Mathematical Equation Preview:</span>
                 <MathView equation={fx} label="f(x) = " className="text-lg font-medium" />
               </div>
             )}
           </div>
 
           <div>
-            <label className="label text-sm font-semibold">XL (Start / Left bound)</label>
+            <label className="label text-sm font-semibold">XL</label>
             <input
               type="number"
               step="any"
@@ -103,7 +114,7 @@ export default function GraphicalPage() {
           </div>
 
           <div>
-            <label className="label text-sm font-semibold">XR (End / Right bound)</label>
+            <label className="label text-sm font-semibold">XR</label>
             <input
               type="number"
               step="any"
@@ -135,7 +146,15 @@ export default function GraphicalPage() {
           </div>
         )}
 
-        <div className="mt-6 flex justify-end">
+        <div className="mt-6 flex items-center justify-end gap-3">
+          <button
+            type="button"
+            onClick={handleRandom}
+            className="btn btn-outline gap-2"
+          >
+            <Shuffle className="size-4" />
+            Random โจทย์
+          </button>
           <button type="submit" className="btn btn-primary px-6">
             Calculate
           </button>

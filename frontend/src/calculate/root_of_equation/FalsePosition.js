@@ -1,4 +1,4 @@
-import { evaluate, parse } from "mathjs";
+import { parse } from "mathjs";
 
 export class FalsePosition {
   constructor(f, a, b, et) {
@@ -24,8 +24,8 @@ export class FalsePosition {
       if (Number.isNaN(fl) || Number.isNaN(fr)) {
         throw new Error("Invalid function format or value");
       }
-    } catch (err) {
-      throw new Error("F(x) Wrong");
+    } catch {
+      throw new Error("Invalid function format f(x)");
     }
   }
 
@@ -37,28 +37,41 @@ export class FalsePosition {
     let fl = this.evalAt(l);
     let fr = this.evalAt(r);
 
-    if (fl === 0) return { root: l, error: 0, iterations: 0 };
-    if (fr === 0) return { root: r, error: 0, iterations: 0 };
+    if (fl === 0) return { root: l, error: 0, iterations: 0, history: [] };
+    if (fr === 0) return { root: r, error: 0, iterations: 0, history: [] };
+
+    if (fl * fr > 0) {
+      throw new Error("f(XL) and f(XR) must have opposite signs. No root bracketed.");
+    }
+
+    if (fr - fl === 0) {
+      throw new Error("f(XR) - f(XL) is zero. Division by zero.");
+    }
 
     let error = 1.0;
-    let maxiter = 1000;
+    const maxiter = 1000;
     let iter = 0;
-    let fx1, oldx1;
     let history = [];
 
+    // Initial root approximation
     let x1 = (fr * l - fl * r) / (fr - fl);
-    fx1 = this.evalAt(x1);
-    fr = this.evalAt(r);
+    let fx1 = this.evalAt(x1);
+
     if (fx1 * fr < 0) {
       l = x1;
     } else {
       r = x1;
     }
-    oldx1 = x1;
+    let oldx1 = x1;
 
     do {
       fl = this.evalAt(l);
       fr = this.evalAt(r);
+
+      if (fr - fl === 0) {
+        break;
+      }
+
       x1 = (fr * l - fl * r) / (fr - fl);
       fx1 = this.evalAt(x1);
 
@@ -68,7 +81,7 @@ export class FalsePosition {
         r = x1;
       }
 
-      error = Math.abs((x1 - oldx1) / x1);
+      error = x1 !== 0 ? Math.abs((x1 - oldx1) / x1) : Math.abs(x1 - oldx1);
       oldx1 = x1;
       iter++;
 

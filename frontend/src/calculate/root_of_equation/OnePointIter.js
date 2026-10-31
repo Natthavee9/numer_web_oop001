@@ -1,4 +1,4 @@
-import { evaluate, parse } from "mathjs";
+import { parse } from "mathjs";
 
 export class Onepoint {
   constructor(x, f, et) {
@@ -22,8 +22,8 @@ export class Onepoint {
       if (Number.isNaN(fx)) {
         throw new Error("Invalid function format or value");
       }
-    } catch (err) {
-      throw new Error("F(x) Wrong");
+    } catch {
+      throw new Error("Invalid function format g(x)");
     }
   }
 
@@ -31,11 +31,11 @@ export class Onepoint {
     this.checkInputs();
     let x = this.x;
     let fx;
-    let error;
+    let error = 1.0;
     let iter = 0;
-    let nx = x;
     let history = [];
-    let maxiter = 1000;
+    const maxiter = 1000;
+
     do {
       fx = this.evalAt(x);
       error = Math.abs((fx - x) / fx);
