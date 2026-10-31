@@ -32,6 +32,7 @@ export const methodGroups: MethodGroup[] = [
       { title: "Gauss-Jordan", path: "/gauss-jordan" },
       { title: "Matrix Inversion", path: "/matrix-inversion" },
       { title: "LU Decomposition", path: "/lu-decomposition" },
+      { title: "Cholesky Decomposition", path: "/cholesky" },
       { title: "Jacobi Iteration", path: "/jacobi" },
       { title: "Conjugate Gradient", path: "/conjugate-gradient" },
     ],
@@ -51,6 +52,15 @@ export const methodGroups: MethodGroup[] = [
     methods: [
       { title: "Regression", path: "/regression" },
       { title: "Polynomial Regression", path: "/polynomial-regression" },
+    ],
+  },
+  {
+    category: "differentiation",
+    label: "Differentiation",
+    methods: [
+      { title: "Forward Divided-Differences", path: "/diff-forward" },
+      { title: "Backward Divided-Differences", path: "/diff-backward" },
+      { title: "Central Divided-Differences", path: "/diff-central" },
     ],
   },
   {

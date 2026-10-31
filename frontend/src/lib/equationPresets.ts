@@ -500,3 +500,29 @@ export function getRandomRegressionProblem(): RegressionPreset {
   return regressionPresets[index]
 }
 
+export interface DifferentiationPreset {
+  fx: string
+  x: string
+  h: string
+  order?: number
+}
+
+export const differentiationPresets: DifferentiationPreset[] = [
+  { fx: "e^x", x: "2.0", h: "0.1", order: 1 },
+  { fx: "x^4 - 2*x^3 + 3*x^2 - 4*x + 5", x: "1.5", h: "0.1", order: 2 },
+  { fx: "sin(x)", x: "1.0", h: "0.05", order: 1 },
+  { fx: "2*x^3 + 4*x^2 - 5*x + 1", x: "2.0", h: "0.2", order: 1 },
+  { fx: "cos(x) - x", x: "0.5", h: "0.1", order: 1 },
+  { fx: "e^(-x) * sin(x)", x: "1.0", h: "0.05", order: 2 },
+  { fx: "x^3 - 3*x^2 + 2*x", x: "2.0", h: "0.1", order: 1 },
+  { fx: "log(x) + x^2", x: "2.0", h: "0.05", order: 1 },
+]
+
+export function getRandomDifferentiationProblem(currentFx?: string): DifferentiationPreset {
+  const filtered = differentiationPresets.filter((p) => p.fx !== currentFx)
+  const pool = filtered.length > 0 ? filtered : differentiationPresets
+  const index = Math.floor(Math.random() * pool.length)
+  return pool[index]
+}
+
+

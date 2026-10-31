@@ -13,6 +13,7 @@ import GaussEliminationPage from './pages/GaussEliminationPage';
 import GaussJordanPage from './pages/GaussJordanPage';
 import MatrixInversionPage from './pages/MatrixInversionPage';
 import LUDecompositionPage from './pages/LUDecompositionPage';
+import CholeskyPage from './pages/CholeskyPage';
 import JacobiPage from './pages/JacobiPage';
 import ConjugateGradientPage from './pages/ConjugateGradientPage';
 import NewtonDividedPage from './pages/NewtonDividedPage';
@@ -24,6 +25,7 @@ import TrapezoidalPage from './pages/TrapezoidalPage';
 import CompositeTrapezoidalPage from './pages/CompositeTrapezoidalPage';
 import SimpsonPage from './pages/SimpsonPage';
 import CompositeSimpsonPage from './pages/CompositeSimpsonPage';
+import DifferentiationPage from './pages/DifferentiationPage';
 
 export default function App() {
   return (
@@ -50,6 +52,8 @@ export default function App() {
               <Route path="/gauss-jordan" element={<GaussJordanPage />} />
               <Route path="/matrix-inversion" element={<MatrixInversionPage />} />
               <Route path="/lu-decomposition" element={<LUDecompositionPage />} />
+              <Route path="/cholesky" element={<CholeskyPage />} />
+              <Route path="/cholesky-decomposition" element={<CholeskyPage />} />
               <Route path="/jacobi" element={<JacobiPage />} />
               <Route path="/conjugate-gradient" element={<ConjugateGradientPage />} />
 
@@ -61,6 +65,13 @@ export default function App() {
               {/* Extrapolation */}
               <Route path="/regression" element={<RegressionPage />} />
               <Route path="/polynomial-regression" element={<PolynomialRegressionPage />} />
+
+              {/* Differentiation */}
+              <Route path="/differentiation" element={<DifferentiationPage />} />
+              <Route path="/diff" element={<DifferentiationPage />} />
+              <Route path="/diff-forward" element={<DifferentiationPage />} />
+              <Route path="/diff-backward" element={<DifferentiationPage />} />
+              <Route path="/diff-central" element={<DifferentiationPage />} />
 
               {/* Integration */}
               <Route path="/trapezoidal" element={<TrapezoidalPage />} />
