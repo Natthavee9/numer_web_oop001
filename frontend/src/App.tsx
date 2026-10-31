@@ -18,6 +18,12 @@ import ConjugateGradientPage from './pages/ConjugateGradientPage';
 import NewtonDividedPage from './pages/NewtonDividedPage';
 import LagrangePage from './pages/LagrangePage';
 import SplinePage from './pages/SplinePage';
+import RegressionPage from './pages/RegressionPage';
+import PolynomialRegressionPage from './pages/PolynomialRegressionPage';
+import TrapezoidalPage from './pages/TrapezoidalPage';
+import CompositeTrapezoidalPage from './pages/CompositeTrapezoidalPage';
+import SimpsonPage from './pages/SimpsonPage';
+import CompositeSimpsonPage from './pages/CompositeSimpsonPage';
 
 export default function App() {
   return (
@@ -51,6 +57,16 @@ export default function App() {
               <Route path="/newton-divided" element={<NewtonDividedPage />} />
               <Route path="/lagrange" element={<LagrangePage />} />
               <Route path="/spline" element={<SplinePage />} />
+
+              {/* Extrapolation */}
+              <Route path="/regression" element={<RegressionPage />} />
+              <Route path="/polynomial-regression" element={<PolynomialRegressionPage />} />
+
+              {/* Integration */}
+              <Route path="/trapezoidal" element={<TrapezoidalPage />} />
+              <Route path="/composite-trapezoidal" element={<CompositeTrapezoidalPage />} />
+              <Route path="/simpson" element={<SimpsonPage />} />
+              <Route path="/composite-simpson" element={<CompositeSimpsonPage />} />
 
               {/* 404 Fallback */}
               <Route path="*" element={<HomePage />} />

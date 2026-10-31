@@ -17,7 +17,9 @@ export function Navbar() {
                         <nav className="hidden flex-1 items-center justify-center gap-1 lg:flex" aria-label="Method categories">
                               {methodGroups.map((group: MethodGroup) => {
                                     const basePath = `/${group.category}`
-                                    const active = location.pathname.startsWith(basePath)
+                                    const active =
+                                          location.pathname.startsWith(basePath) ||
+                                          group.methods.some((m) => m.path && location.pathname === m.path)
                                     return (
                                           <div key={group.category} className="dropdown dropdown-hover dropdown-bottom">
                                                 <div
@@ -25,7 +27,7 @@ export function Navbar() {
                                                       role="button"
                                                       className={cn(
                                                             "rounded-lg px-3 py-2 text-[13px] transition-colors hover:bg-base-200",
-                                                            active && "bg-base-200",
+                                                            active && "bg-base-200 font-semibold text-primary",
                                                       )}
                                                 >
                                                       {group.label}
@@ -36,7 +38,10 @@ export function Navbar() {
                                                                   <li key={method.title}>
                                                                         <Link
                                                                               to={method.path || basePath}
-                                                                              className="block rounded-lg px-3 py-2 text-sm font-medium transition-colors hover:bg-base-200"
+                                                                              className={cn(
+                                                                                    "block rounded-lg px-3 py-2 text-sm font-medium transition-colors hover:bg-base-200",
+                                                                                    location.pathname === method.path && "bg-base-200 text-primary font-semibold"
+                                                                              )}
                                                                         >
                                                                               {method.title}
                                                                         </Link>
@@ -49,7 +54,7 @@ export function Navbar() {
                               })}
                         </nav>
 
-                        {/* Right-side action area (e.g., ThemeToggle) */}
+                        {/* Right-side action area */}
                         <div className="ml-auto flex items-center">
                               {/* <ThemeToggle /> */}
                         </div>
@@ -57,20 +62,25 @@ export function Navbar() {
 
                   {/* Mobile horizontal scrollable navigation bar */}
                   <nav className="flex gap-2 overflow-x-auto border-t border-base-300 px-4 py-1.5 lg:hidden">
-                        {methodGroups.map((group: MethodGroup) => (
-                              <Link
-                                    key={group.category}
-                                    to={`/${group.category}`}
-                                    className={cn(
-                                          "whitespace-nowrap rounded-lg px-2 py-1 text-xs",
-                                          location.pathname.startsWith(`/${group.category}`)
-                                                ? "bg-base-200"
-                                                : "text-base-content/60",
-                                    )}
-                              >
-                                    {group.label}
-                              </Link>
-                        ))}
+                        {methodGroups.map((group: MethodGroup) => {
+                              const active =
+                                    location.pathname.startsWith(`/${group.category}`) ||
+                                    group.methods.some((m) => m.path && location.pathname === m.path)
+                              return (
+                                    <Link
+                                          key={group.category}
+                                          to={group.methods[0]?.path || `/${group.category}`}
+                                          className={cn(
+                                                "whitespace-nowrap rounded-lg px-2 py-1 text-xs transition-colors",
+                                                active
+                                                      ? "bg-base-200 font-semibold text-primary"
+                                                      : "text-base-content/60 hover:text-base-content",
+                                          )}
+                                    >
+                                          {group.label}
+                                    </Link>
+                              )
+                        })}
                   </nav>
             </header>
       )

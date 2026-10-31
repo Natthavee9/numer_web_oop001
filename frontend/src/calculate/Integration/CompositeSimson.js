@@ -18,7 +18,7 @@ export class CompositeSimpson {
 
   solve() {
     this.steps.push(
-      `I \\approx \\frac{h}{3} (f(x_0) + f(x_n) + 4\\displaystyle\\sum_{i=1,3}^{n-1} f(x_i)) + 2\\displaystyle\\sum_{i=2,4}^{n-2} f(x_i))`,
+      `I \\approx \\frac{h}{3} [f(x_0) + f(x_{2n}) + 4\\displaystyle\\sum_{i=1,3}^{2n-1} f(x_i) + 2\\displaystyle\\sum_{i=2,4}^{2n-2} f(x_i)]`,
     );
 
     const formatEquation = (x) => {
@@ -28,7 +28,7 @@ export class CompositeSimpson {
     // Compute subinterval width h = (b - a) / (2n)
     let h = (this.B - this.A) / (2 * this.n);
     this.steps.push(
-      `h = \\frac{b - a}{n} = \\frac{${this.B} - ${this.A}}{2(${this.n})} = ${h}`,
+      `h = \\frac{b - a}{2n} = \\frac{${this.B} - ${this.A}}{2(${this.n})} = ${h}`,
     );
     let x = [];
     let fx = [];
@@ -61,19 +61,19 @@ export class CompositeSimpson {
         sum_string4.push(fx[i].toFixed(4));
       }
     }
-    let sum_string = sum_string2.join(" + ");
+    const sum_string_odd = sum_string4.join(" + ");
     this.steps.push(
-      `\\displaystyle\\sum_{i=1}^{n-1} f(x_i) = ${sum_string} = ${sum4.toFixed(7)}`,
+      `\\displaystyle\\sum_{i=1,3}^{2n-1} f(x_i) = ${sum_string_odd} = ${sum4.toFixed(7)}`,
     );
-    sum_string = sum_string4.join(" + ");
+    const sum_string_even = sum_string2.join(" + ");
     this.steps.push(
-      `\\displaystyle\\sum_{i=2}^{n-2} f(x_i) = ${sum_string} = ${sum2.toFixed(7)}`,
+      `\\displaystyle\\sum_{i=2,4}^{2n-2} f(x_i) = ${sum_string_even} = ${sum2.toFixed(7)}`,
     );
 
     // Apply Composite Simpson's 1/3 formula
     const ans = (h / 3) * (fx[0] + fx[this.n * 2] + 4 * sum4 + 2 * sum2);
     this.steps.push(
-      `I \\approx \\frac{${h.toFixed(4)}}{3} [${fx[0].toFixed(7)} + ${fx[this.n].toFixed(7)} + 4(${sum4.toFixed(7)}) + 2(${sum2.toFixed(7)})] = ${ans.toFixed(7)}`,
+      `I \\approx \\frac{${h.toFixed(4)}}{3} [${fx[0].toFixed(7)} + ${fx[this.n * 2].toFixed(7)} + 4(${sum4.toFixed(7)}) + 2(${sum2.toFixed(7)})] = ${ans.toFixed(7)}`,
     );
 
     // Return the approximated integral and LaTeX steps

@@ -409,3 +409,94 @@ export function getRandomInterpolationProblem(): InterpolationPreset {
   return interpolationPresets[index]
 }
 
+export interface IntegrationPreset {
+  fx: string
+  a: string
+  b: string
+  n?: string
+}
+
+export const integrationPresets: IntegrationPreset[] = [
+  { fx: "x^7 + 2*x^3 - 1", a: "0", b: "1", n: "4" },
+  { fx: "4*x^5 - 3*x^4 + x^3 - 6*x + 2", a: "1", b: "2", n: "4" },
+  { fx: "1 / (1 + x^2)", a: "0", b: "1", n: "6" },
+  { fx: "e^x", a: "0", b: "1", n: "4" },
+  { fx: "sin(x)", a: "0", b: "3.14159", n: "6" },
+  { fx: "x^2 + 2*x + 1", a: "0", b: "2", n: "4" },
+  { fx: "sqrt(1 + x^2)", a: "0", b: "2", n: "4" },
+  { fx: "x * e^x", a: "0", b: "1", n: "4" },
+  { fx: "cos(x)", a: "0", b: "1.5708", n: "4" },
+]
+
+export function getRandomIntegrationProblem(currentFx?: string): IntegrationPreset {
+  const filtered = integrationPresets.filter((p) => p.fx !== currentFx)
+  const pool = filtered.length > 0 ? filtered : integrationPresets
+  const index = Math.floor(Math.random() * pool.length)
+  return pool[index]
+}
+
+export interface RegressionPreset {
+  points: { x: string; y: string }[]
+  targetX: string
+  order?: string
+}
+
+export const regressionPresets: RegressionPreset[] = [
+  {
+    points: [
+      { x: "10", y: "106" },
+      { x: "15", y: "159" },
+      { x: "20", y: "212" },
+      { x: "25", y: "265" },
+      { x: "30", y: "318" },
+    ],
+    targetX: "16",
+    order: "1",
+  },
+  {
+    points: [
+      { x: "1", y: "2.1" },
+      { x: "2", y: "7.9" },
+      { x: "3", y: "18.2" },
+      { x: "4", y: "31.9" },
+      { x: "5", y: "50.1" },
+    ],
+    targetX: "2.5",
+    order: "2",
+  },
+  {
+    points: [
+      { x: "10", y: "25" },
+      { x: "20", y: "70" },
+      { x: "30", y: "380" },
+      { x: "40", y: "550" },
+      { x: "50", y: "610" },
+      { x: "60", y: "1220" },
+      { x: "70", y: "830" },
+      { x: "80", y: "1450" },
+    ],
+    targetX: "45",
+    order: "2",
+  },
+  {
+    points: [
+      { x: "1", y: "1" },
+      { x: "2", y: "1.5" },
+      { x: "3", y: "2" },
+      { x: "4", y: "3" },
+      { x: "5", y: "4" },
+      { x: "6", y: "5" },
+      { x: "7", y: "8" },
+      { x: "8", y: "10" },
+      { x: "9", y: "13" },
+    ],
+    targetX: "6.5",
+    order: "2",
+  },
+]
+
+export function getRandomRegressionProblem(): RegressionPreset {
+  const index = Math.floor(Math.random() * regressionPresets.length)
+  return regressionPresets[index]
+}
+

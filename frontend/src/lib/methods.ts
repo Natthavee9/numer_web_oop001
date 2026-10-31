@@ -46,13 +46,21 @@ export const methodGroups: MethodGroup[] = [
     ],
   },
   {
+    category: "extrapolation",
+    label: "Extrapolation",
+    methods: [
+      { title: "Regression", path: "/regression" },
+      { title: "Polynomial Regression", path: "/polynomial-regression" },
+    ],
+  },
+  {
     category: "integration",
     label: "Integration",
     methods: [
-      { title: "Trapezoidal Rule" },
-      { title: "Composite Trapezoidal Rule" },
-      { title: "Simpson's Rule" },
-      { title: "Composite Simpson's Rule" },
+      { title: "Trapezoidal Rule", path: "/trapezoidal" },
+      { title: "Composite Trapezoidal Rule", path: "/composite-trapezoidal" },
+      { title: "Simpson's Rule", path: "/simpson" },
+      { title: "Composite Simpson's Rule", path: "/composite-simpson" },
     ],
   },
 ]
