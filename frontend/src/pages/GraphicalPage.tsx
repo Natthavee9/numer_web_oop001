@@ -153,7 +153,7 @@ export default function GraphicalPage() {
             className="btn btn-outline gap-2"
           >
             <Shuffle className="size-4" />
-            Random โจทย์
+            Random
           </button>
           <button type="submit" className="btn btn-primary px-6">
             Calculate

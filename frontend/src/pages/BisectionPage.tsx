@@ -159,7 +159,7 @@ export default function BisectionPage() {
             className="btn btn-outline gap-2"
           >
             <Shuffle className={`size-4 ${loadingRandom ? "animate-spin" : ""}`} />
-            {loadingRandom ? "กำลังดึงโจทย์..." : "Random โจทย์"}
+            {loadingRandom ? "Loading..." : "Random"}
           </button>
           <button type="submit" className="btn btn-primary px-6">
             Calculate
